@@ -1,0 +1,25 @@
+version: '3'
+services:
+  def-soc-assessment:
+    build:
+      context: ./../../WebstormProjects/def-soc-assessment
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"  # Angular usa il server NGINX sulla porta 80
+    depends_on:
+      - def-soc-backend
+    networks:
+      - app-network
+
+  def-soc-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
